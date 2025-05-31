@@ -1,19 +1,21 @@
 ````markdown
 # 📊 Financial Dashboard Automation
 
-This project automates downloading, processing, and reporting of financial stock data using Python.
+This project automates downloading, processing, analyzing, and reporting of financial stock data using Python, Machine Learning, and FastAPI.
 
 ---
 
 ## ✨ Features
 
 ✅ Fetch financial data from Yahoo Finance (via `yfinance`)  
-✅ Clean and process data (with Pandas)  
+✅ Clean and process data (Pandas)  
 ✅ Calculate indicators (moving average, volatility)  
-✅ Generate plots (using Matplotlib)  
-✅ Create automated HTML reports  
-✅ Run as a daily automated job (via `schedule`)  
-✅ Fully configurable via `config.json`
+✅ Generate plots and HTML reports (Matplotlib)  
+✅ Basic ML prediction (will the price go up/down tomorrow)  
+✅ Expose REST API (via FastAPI) to fetch reports and predictions  
+✅ Trigger manual analysis directly from a web interface  
+✅ Fully configurable via `config.json`  
+✅ Run anywhere with Docker
 
 ---
 
@@ -24,11 +26,14 @@ This project automates downloading, processing, and reporting of financial stock
   - pandas
   - yfinance
   - matplotlib
+  - scikit-learn
+  - fastapi
+  - uvicorn
   - schedule
 
 ---
 
-## ⚙ How to Use
+## ⚙ How to Use (Locally)
 
 1️⃣ Clone this repository:
 
@@ -38,14 +43,13 @@ cd financial-dashboard
 ```
 ````
 
-````
-
 2️⃣ Install dependencies:
+
 ```bash
 pip install -r requirements.txt
-````
+```
 
-3️⃣ Edit config.json to choose your stock ticker, period, and interval:
+3️⃣ Edit `config.json` to choose your stock ticker, period, and interval:
 
 ```json
 {
@@ -56,24 +60,60 @@ pip install -r requirements.txt
 }
 ```
 
-4️⃣ Run the automated scheduler:
+4️⃣ Run the web server:
 
 ```bash
-python scheduler.py
+python api_server.py
 ```
 
-📁 Output
-Data CSV files → saved in /data
-Plots and HTML reports → saved in /reports
+5️⃣ Open in your browser:
 
-💡 Example
-After running, check:
+```
+http://localhost:8000/
+```
 
-reports/AAPL_report.html
+- Click **Run Analysis** button → this will:
+  ✅ Fetch latest data
+  ✅ Update report and plot
+  ✅ Run ML prediction
+  ✅ Show results + chart directly in the browser
 
-reports/AAPL_chart.png
+---
 
-You can open the HTML file in your browser to view the latest report.
+## 🌐 API Endpoints
 
-🏆 Author
+- **GET /** → main page with Run button
+- **POST /run-scheduler** → manually trigger data update
+- **GET /report/{ticker}** → get latest HTML report
+- **GET /predict/{ticker}** → get ML prediction as JSON
+
+Example:
+
+```bash
+curl -X POST http://localhost:8000/run-scheduler
+```
+
+---
+
+## 📁 Output Files
+
+- CSV files → stored in `/data`
+- Plots and HTML reports → stored in `/reports`
+
+Example:
+
+- `reports/AAPL_report.html`
+- `reports/AAPL_chart.png`
+
+---
+
+## 🏆 Author
+
 Made by MDautev
+🔗 GitHub: [github.com/MDautev](https://github.com/MDautev)
+
+---
+
+```
+
+```
