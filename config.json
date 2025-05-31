@@ -1,0 +1,6 @@
+{
+    "ticker": "AAPL",
+    "available_tickers": ["AAPL", "MSFT", "TSLA", "GOOGL", "AMZN", "NVDA", "META", "NFLX"],
+    "period": "1mo",
+    "interval": "1d"
+}
